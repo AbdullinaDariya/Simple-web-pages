@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>t-11</title>
+</head>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+
+<body>
+    <p>Задание 11 Абдуллина ПИ18-1</p>
+    <h2><b>Справочник покупок семьи</b></h2>
+    <b>
+        <li>ID Покупка Категория Цена</li>
+    </b>
+    <ol id='List'></ol>
+
+    <input id="purchase" placeholder="Введите название покупки">
+    <input id="category" placeholder="Введите категорию">
+    <input id="price" placeholder="Введите цену">
+
+    <br><input type='button' value='Добавить' onclick='addElem()'>
+    <br><br><input type='button' value='Очистить справочник' onclick='clearList()'>
+    <input type='button' value='Вывести общую сумму покупок' onclick='sumPrice()'>
+    <input type='button' value='Вывести весь список' onclick='allList()'>
+    <p id="p1"></p>
+    <p id="p2"></p>
+
+    <p id="p3"></p>
+    <p id="p4"></p>
+
+    <script>
+        function clearList() { 
+            localStorage.clear();
+            while (ol.firstChild) ol.removeChild(ol.firstChild)
+            itemsArray = [];
+        }
+        function allList() { 
+            document.getElementById("p4").textContent=arr1;
+            document.getElementById("p3").textContent='Весь список: ';
+        }
+
+
+
+        function addElem() { // добавить 
+            itemsArray.push(input1.value);
+            itemsArray.push(input2.value);
+            itemsArray.push(input3.value);
+            localStorage.setItem('items', JSON.stringify(itemsArray));
+            const li = document.createElement('li');
+            li.textContent = input1.val() + ' ' + input2.val() + ' ' + input3.val();
+            ol.appendChild(li);
+            arr.push(input3.val());
+            arr1.push(li.textContent);
+            input1.value = "";
+            input2.value = "";
+            input3.value = "";
+        }
+        function sumPrice() {
+            let result = arr.reduce(function(sum, elem) {
+	        return sum + Number(elem);
+            }, 0);
+            document.getElementById("p2").textContent=result;
+            document.getElementById("p1").textContent='Общая сумма покупки: ';
+
+        }
+        window.arr = new Array();
+        let arr = []
+        window.arr1 = new Array();
+        let arr1 = []
+        const form = document.querySelector('form');
+        const ol = document.getElementById('List');
+        const input3 = $('#price');
+        const input1 = $('#purchase');
+        const input2 = $('#category');
+        let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
+
+        document.getElementById('but_sum').onclick = function() {
+        for (i = 0; i < itemsArray.length; i++) {
+            const li = document.createElement('li');
+            li.textContent = itemsArray[i];
+            ol.appendChild(li);
+        } }
+
+    
+    </script>
+</body>
+
+</html>
